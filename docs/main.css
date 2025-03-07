@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+html {
+    scroll-behavior: smooth;
+  }
+  
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #4F46E5;
+    cursor: pointer;
+  }
+
+  .sticky-sidebar {
+    position: sticky;
+    top: 2rem;
+    height: calc(100vh - 4rem);
+  }
+  
+  .feature-section {
+    min-height: 100vh;
+    scroll-margin-top: 1rem;
+  }
+
+  
+  .active-button {
+    background-image: linear-gradient(to right, #4f46e5, #8b5cf6);
+    color: white;
+}
+  .active-indicator {
+    opacity: 1 !important;
+  }
+
+  #btn-fonctionnalite-1:hover p {
+    color: white; /* Texte devient blanc */
+  }
+
+  #btn-fonctionnalite-2:hover p {
+    color: white; /* Texte devient blanc */
+  }
+
+  #btn-fonctionnalite-3:hover p {
+    color: white; /* Texte devient blanc */
+  }
+
+  
