@@ -2,639 +2,479 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">  <link rel="stylesheet" href="main.css">
     <title>Gemini API</title>
     <script type="module" src="index.js"></script>
-    <link rel="stylesheet" crossorigin href="/playplan/assets/index-Dg8X2cEW.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link rel="stylesheet" href="main.css">
   </head>
   <body>
 
 
-  <header>
-    <h1>Planning hebdomadaire</h1>
-    <p>Génération par l'IA d'un planning d'activités</p>
-    <canvas id="myCanvas" style="display:none;"></canvas>
-  </header>
-  
+    <body class="bg-gray-100">
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="card  border-dark bg-custom-1">
-          <div class="card-body">
-
-            <h2 class="card-title">Paramètres variables</h2>
-
-            <h6 class="card-subtitle mb-2 text-body-secondary">Paramètres à modifier chaque semaine</h6>
+      <header class="py-6 px-4 bg-blue-600 text-white text-center">
+        <h1 class="text-3xl font-bold">Planning hebdomadaire</h1>
+        <p class="mt-2">Génération par l'IA d'un planning d'activités</p>
+        <canvas id="myCanvas" class="hidden"></canvas>
+      </header>
       
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="card mt-3 border-dark bg-custom-2">
-                  <div class="card-body">
-    
-                    <h5 class="card-title">Matériel</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Cocher/Décocher le matériel dont vous disposez</h6>
-    
-
-                    <div data-bs-spy="scroll" 
-                    data-bs-smooth-scroll="true" 
-                    class="scrollspy-example custom-scrollbox bg-body-tertiary p-3 rounded-2" 
-                    tabindex="0">
-                    <ul class="list-group">
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Tubes en carton</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="checkTubeCarton" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-    
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Colle</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="checkColle" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Crayons à papier</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="checkCrayonsPapier" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Feutres</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="checkFeutres" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Papier de soie</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="checkPapierSoie" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Brouillon</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="checkBrouillon" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-
-    
-                      <li class="list-group-item">
-    
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Papier à imprimante</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="checkPapierImprimer" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-    
-    
-    
-                      </li>
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Pinceaux</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="checkPinceaux" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-    
-                      </li>
-                      <li class="list-group-item">                    
-                        <div class="row">
-                        <div class="col-lg-10 mt-1">
-                          <p class="card-text">Gobelets</p>
-                        </div>
-                        <div class="col-lg-2 mt-1">
-                          <label class="container">
-                            <input id="checkGobelets" checked="checked" type="checkbox">
-                            <div class="checkmark">
-                            </div>
-                          </label>
-                        </div>
-                      </div>
-                    </li>
-                    </ul>
-
-               </div>
-
-
-
-
-
-                    
-        
-                  </div>
-                </div>   
-              </div>
-              <div class="col-lg-8">
-                <div class="card mt-3 border-dark bg-custom-2">
-                  <div class="card-body">
-                    <h5 class="card-title">Présence</h5>
-                    <h6 class="card-subtitle mb-2 text-body-secondary">Indiquer le nombre d'enfants par demi-journée</h6>
-
-                    <table class="table mt-3">
-                      <thead>
-                        <tr>
-                          <th scope="col"> </th>
-                          <th scope="col">Lundi</th>
-                          <th scope="col">Mardi</th>
-                          <th scope="col">Mercredi</th>
-                          <th scope="col">Jeudi</th>
-                          <th scope="col">Vendredi</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">Matin</div>
-                          </th>
-                          <td>                            
-                            <div class="input-group">
-                            <input id ="presLundiMatin" type="text" class="form-control" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                          </td>
-                          <td>                            
-                            <div class="input-group">
-                              <input id ="presMardiMatin" type="text" class="form-control" aria-describedby="inputGroup-sizing-default">
-                              </div>
-                            </td>
-                          <td>                           
-                            <div class="input-group">
-                              <input id ="presMercrediMatin" type="text" class="form-control"  aria-describedby="inputGroup-sizing-default">
-                              </div>
-                            </td>
-                          <td>                            
-                            <div class="input-group">
-                              <input id ="presJeudiMatin" type="text" class="form-control"  aria-describedby="inputGroup-sizing-default">
-                              </div>
-                            </td>
-                          <td>                            
-                            <div class="input-group">
-                              <input id ="presVendrediMatin" type="text" class="form-control"  aria-describedby="inputGroup-sizing-default">
-                              </div>
-                              </td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Après-midi</th>
-                          <td>                            
-                            <div class="input-group">
-                              <input id ="presLundiAprem" type="text" class="form-control"  aria-describedby="inputGroup-sizing-default">
-                              </div>
-                            </td>
-                          <td>                            
-                            <div class="input-group">
-                              <input id ="presMardiAprem" type="text" class="form-control"  aria-describedby="inputGroup-sizing-default">
-                              </div>
-                            </td>
-                          <td>                            
-                            <div class="input-group">
-                              <input id ="presMercrediAprem" type="text" class="form-control"  aria-describedby="inputGroup-sizing-default">
-                              </div>
-                            </td>                          
-                          <td>                            
-                            <div class="input-group">
-                              <input id ="presJeudiAprem" type="text" class="form-control"  aria-describedby="inputGroup-sizing-default">
-                            </div>
-                          </td>
-                          <td>                            
-                            <div class="input-group">
-                              <input id ="presVendrediAprem" type="text" class="form-control"  aria-describedby="inputGroup-sizing-default">
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-
-
-            <div class="card mt-3 border-dark bg-custom-2">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-wrap -mx-4">
+          <div class="w-full lg:w-2/3 px-4 mb-8">
+            <div class="bg-blue-50 border border-gray-800 rounded-lg shadow-md p-6">
               <div class="card-body">
-                <h5 class="card-title">Préférences</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">Renseigner le thème et les détails spécifiques à prendre en compte</h6>
-                <div class="input-group mt-3">
-                  <span class="input-group-text" id="basic-addon1">Thème de la semaine</span>
-                  <input id="theme" type="text" class="form-control" placeholder="Boucle d'or, Le Printemps, etc." aria-label="Theme" aria-describedby="basic-addon1">
+                <h2 class="text-2xl font-bold mb-2">Paramètres variables</h2>
+                <h6 class="text-gray-600 mb-4">Paramètres à modifier chaque semaine</h6>
+          
+                <div class="flex flex-wrap -mx-2">
+                  <div class="w-full lg:w-1/3 px-2">
+                    <div class="bg-blue-100 border border-gray-800 rounded-lg shadow mt-3 p-4">
+                      <h5 class="text-xl font-bold mb-2">Matériel</h5>
+                      <h6 class="text-gray-600 mb-4">Cocher/Décocher le matériel dont vous disposez</h6>
+        
+                      <div class="overflow-y-auto h-64 bg-white p-3 rounded">
+                        <ul class="divide-y divide-gray-200">
+                          <li class="py-2">
+                            <div class="flex justify-between items-center">
+                              <p class="card-text">Tubes en carton</p>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="checkTubeCarton" checked="checked" type="checkbox" class="sr-only peer">
+                                <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                              </label>
+                            </div>
+                          </li>
+        
+                          <li class="py-2">
+                            <div class="flex justify-between items-center">
+                              <p class="card-text">Colle</p>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="checkColle" checked="checked" type="checkbox" class="sr-only peer">
+                                <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                              </label>
+                            </div>
+                          </li>
+                          
+                          <li class="py-2">
+                            <div class="flex justify-between items-center">
+                              <p class="card-text">Crayons à papier</p>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="checkCrayonsPapier" checked="checked" type="checkbox" class="sr-only peer">
+                                <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                              </label>
+                            </div>
+                          </li>
+                          
+                          <li class="py-2">
+                            <div class="flex justify-between items-center">
+                              <p class="card-text">Feutres</p>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="checkFeutres" checked="checked" type="checkbox" class="sr-only peer">
+                                <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                              </label>
+                            </div>
+                          </li>
+                          
+                          <li class="py-2">
+                            <div class="flex justify-between items-center">
+                              <p class="card-text">Papier de soie</p>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="checkPapierSoie" checked="checked" type="checkbox" class="sr-only peer">
+                                <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                              </label>
+                            </div>
+                          </li>
+                          
+                          <li class="py-2">
+                            <div class="flex justify-between items-center">
+                              <p class="card-text">Brouillon</p>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="checkBrouillon" checked="checked" type="checkbox" class="sr-only peer">
+                                <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                              </label>
+                            </div>
+                          </li>
+        
+                          <li class="py-2">
+                            <div class="flex justify-between items-center">
+                              <p class="card-text">Papier à imprimante</p>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="checkPapierImprimer" checked="checked" type="checkbox" class="sr-only peer">
+                                <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                              </label>
+                            </div>
+                          </li>
+                          
+                          <li class="py-2">
+                            <div class="flex justify-between items-center">
+                              <p class="card-text">Pinceaux</p>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="checkPinceaux" checked="checked" type="checkbox" class="sr-only peer">
+                                <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                              </label>
+                            </div>
+                          </li>
+                          
+                          <li class="py-2">
+                            <div class="flex justify-between items-center">
+                              <p class="card-text">Gobelets</p>
+                              <label class="relative inline-flex items-center cursor-pointer">
+                                <input id="checkGobelets" checked="checked" type="checkbox" class="sr-only peer">
+                                <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                              </label>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>   
+                  </div>
+                  
+                  <div class="w-full lg:w-2/3 px-2">
+                    <div class="bg-blue-100 border border-gray-800 rounded-lg shadow mt-3 p-4">
+                      <h5 class="text-xl font-bold mb-2">Présence</h5>
+                      <h6 class="text-gray-600 mb-4">Indiquer le nombre d'enfants par demi-journée</h6>
+    
+                      <div class="overflow-x-auto">
+                        <table class="w-full mt-3 border-collapse">
+                          <thead>
+                            <tr>
+                              <th class="p-2 border border-gray-300 text-left"></th>
+                              <th class="p-2 border border-gray-300 text-left">Lundi</th>
+                              <th class="p-2 border border-gray-300 text-left">Mardi</th>
+                              <th class="p-2 border border-gray-300 text-left">Mercredi</th>
+                              <th class="p-2 border border-gray-300 text-left">Jeudi</th>
+                              <th class="p-2 border border-gray-300 text-left">Vendredi</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <th class="p-2 border border-gray-300 text-left">Matin</th>
+                              <td class="p-2 border border-gray-300">                            
+                                <div class="flex">
+                                  <input id="presLundiMatin" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>
+                              <td class="p-2 border border-gray-300">                            
+                                <div class="flex">
+                                  <input id="presMardiMatin" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>
+                              <td class="p-2 border border-gray-300">                           
+                                <div class="flex">
+                                  <input id="presMercrediMatin" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>
+                              <td class="p-2 border border-gray-300">                            
+                                <div class="flex">
+                                  <input id="presJeudiMatin" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>
+                              <td class="p-2 border border-gray-300">                            
+                                <div class="flex">
+                                  <input id="presVendrediMatin" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th class="p-2 border border-gray-300 text-left">Après-midi</th>
+                              <td class="p-2 border border-gray-300">                            
+                                <div class="flex">
+                                  <input id="presLundiAprem" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>
+                              <td class="p-2 border border-gray-300">                            
+                                <div class="flex">
+                                  <input id="presMardiAprem" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>
+                              <td class="p-2 border border-gray-300">                            
+                                <div class="flex">
+                                  <input id="presMercrediAprem" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>                          
+                              <td class="p-2 border border-gray-300">                            
+                                <div class="flex">
+                                  <input id="presJeudiAprem" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>
+                              <td class="p-2 border border-gray-300">                            
+                                <div class="flex">
+                                  <input id="presVendrediAprem" type="text" class="w-full p-1 border border-gray-300 rounded">
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="input-group mt-2">  
-                  <span class="input-group-text" id="basic-addon1">Autres préférences</span>
-                  <input id="preferencesSpe" type="text" class="form-control" placeholder="Ecrire une phrase détaillant les préférences à prendre en compte" aria-label="Theme" aria-describedby="basic-addon1">
+    
+                <div class="bg-blue-100 border border-gray-800 rounded-lg shadow mt-3 p-4">
+                  <h5 class="text-xl font-bold mb-2">Préférences</h5>
+                  <h6 class="text-gray-600 mb-4">Renseigner le thème et les détails spécifiques à prendre en compte</h6>
+                  
+                  <div class="flex mt-3">
+                    <span class="inline-flex items-center px-3 text-gray-900 bg-gray-200 border border-gray-300 rounded-l-md">
+                      Thème de la semaine
+                    </span>
+                    <input id="theme" type="text" class="w-full p-2 border border-gray-300 rounded-r-md" placeholder="Boucle d'or, Le Printemps, etc.">
+                  </div>
+                  
+                  <div class="flex mt-2">  
+                    <span class="inline-flex items-center px-3 text-gray-900 bg-gray-200 border border-gray-300 rounded-l-md">
+                      Autres préférences
+                    </span>
+                    <input id="preferencesSpe" type="text" class="w-full p-2 border border-gray-300 rounded-r-md" placeholder="Ecrire une phrase détaillant les préférences à prendre en compte">
+                  </div>
                 </div>
-
               </div>
             </div>
-
           </div>
-        </div>
-      </div>            
+          
+          <div class="w-full lg:w-1/3 px-4">
+            <div class="bg-blue-50 border border-gray-800 rounded-lg shadow-md p-6">
+              <h2 class="text-2xl font-bold cursor-pointer flex items-center" onclick="document.getElementById('collapseExample1').classList.toggle('hidden')">
+                <p>Paramètres fixes +</p>
+              </h2>
+              <h6 class="text-gray-600 mb-4">Paramètres à modifier en cas de situation exceptionelle</h6>
+          
+              <div id="collapseExample1" class="hidden">
+                <div class="bg-blue-100 border border-gray-800 rounded-lg shadow mt-3 p-4">
+                  <h5 class="text-xl font-bold mb-2">Déroulement de la journée</h5>
+                  <p class="mb-4">Ces paramètres dépendent des variables principales.</p>
       
-      <div class="col-lg-4">
-        <div class="card border-dark bg-custom-1">
-          <div class="card-body">
-            <h2 class="card-title d-inline-flex gap-1" data-bs-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
-              <P>Paramètres fixes +</P>
-            </h2>
-            <h6 class="card-subtitle mb-2 text-body-secondary">Paramètres à modifier en cas de situation exceptionelle</h6>
-      
-            <div class="collapse" id="collapseExample1">
-              <div class="card mt-3 border-dark bg-custom-2">
-                <div class="card-body">
-                  <h5 class="card-title">Déroulement de la journée</h5>
-                  <p class="card-text">Ces paramètres dépendent des variables principales.</p>
-  
-                  <table class="table mt-3 w-80">
+                  <table class="w-full mt-3 border-collapse">
                     <tbody>
                       <tr>
-                        <th scope="row" >8h30 - 9h30 : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value="Accueil" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">8h30 - 9h30 :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="Accueil">
+                          </div>
+                        </td>
                       </tr>
                       <tr>
-                        <th scope="row">9h30 - 9h45 : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="REGROUPEMENT" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">9h30 - 9h45 :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="REGROUPEMENT">
+                          </div>
+                        </td>
                       </tr>
                       <tr>
-                        <th scope="row" >9h45 - 10h45 : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="ATELIERS, PREP SCHOOL" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">9h45 - 10h45 :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="ATELIERS, PREP SCHOOL">
+                          </div>
+                        </td>
                       </tr>
-
                       <tr>
-                        <th scope="row">10h45 : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="TEMPS D'EAU" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">10h45 :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="TEMPS D'EAU">
+                          </div>
+                        </td>
                       </tr>
-
                       <tr>
-                        <th scope="row">11H : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="SOINS ENFANTS, ATELIERS/PREP SCHOOL" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">11H :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="SOINS ENFANTS, ATELIERS/PREP SCHOOL">
+                          </div>
+                        </td>
                       </tr>
-
                       <tr>
-                        <th scope="row" >12h10 - 12h45 : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="REPAS" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">12h10 - 12h45 :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="REPAS">
+                          </div>
+                        </td>
                       </tr>
-
                       <tr>
-                        <th scope="row" >13H : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="SOINS, SOMMEIL" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">13H :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="SOINS, SOMMEIL">
+                          </div>
+                        </td>
                       </tr>
-
                       <tr>
-                        <th scope="row" >14h - 14h45 : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="ACCEUIL" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">14h - 14h45 :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="ACCEUIL">
+                          </div>
+                        </td>
                       </tr>
-
                       <tr>
-                        <th scope="row">14h45 - 15h : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="REGROUPEMENT" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">14h45 - 15h :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="REGROUPEMENT">
+                          </div>
+                        </td>
                       </tr>
-
                       <tr>
-                        <th scope="row">15h : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="ATELIERS, PREP SCHOOL" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">15h :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="ATELIERS, PREP SCHOOL">
+                          </div>
+                        </td>
                       </tr>
-
                       <tr>
-                        <th scope="row" >16h : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="GOUTER" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">16h :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="GOUTER">
+                          </div>
+                        </td>
                       </tr>
-
                       <tr>
-                        <th scope="row" >16h30 : 
-                        </th>
-                        <td class="w-100">                          
-                          <div class="input-group">
-                            <input type="text" class="form-control"  value ="ATELIERS, PREP SCHOOL, SOINS, TRANSMISSION/DEPART" aria-describedby="inputGroup-sizing-default">
-                            </div>
-                            </td>
+                        <th class="p-2 border border-gray-300 text-left">16h30 :</th>
+                        <td class="p-2 border border-gray-300 w-full">                          
+                          <div class="flex">
+                            <input type="text" class="w-full p-1 border border-gray-300 rounded" value="ATELIERS, PREP SCHOOL, SOINS, TRANSMISSION/DEPART">
+                          </div>
+                        </td>
                       </tr>
-
-
-
-
-
                     </tbody>
                   </table>
-  
                 </div>
-              </div>
-  
-              <div class="card mt-3 border-dark bg-custom-2">
-                <div class="card-body">
-                  <h5 class="card-title">Distribution des ateliers</h5>
-                  <p class="card-text">Ces paramètres dépendent des variables principales.</p>
-
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-lg-10 mt-1">
-                          <p class="card-text">Baby Yoga</p>
-                        </div>
-                        <div class="col-lg-2 mt-1">
-                          <label class="container">
-                            <input checked="checked" type="checkbox">
-                            <div class="checkmark">
-                            </div>
-                          </label>
-                        </div>
+      
+                <div class="bg-blue-100 border border-gray-800 rounded-lg shadow mt-3 p-4">
+                  <h5 class="text-xl font-bold mb-2">Distribution des ateliers</h5>
+                  <p class="mb-4">Ces paramètres dépendent des variables principales.</p>
+    
+                  <ul class="divide-y divide-gray-200">
+                    <li class="py-2">
+                      <div class="flex justify-between items-center">
+                        <p>Baby Yoga</p>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input checked="checked" type="checkbox" class="sr-only peer">
+                          <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                        </label>
                       </div>
                     </li>
-
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-lg-10 mt-1">
-                          <p class="card-text">Baby Beaux Arts</p>
-                        </div>
-                        <div class="col-lg-2 mt-1">
-                          <label class="container">
-                            <input checked="checked" type="checkbox">
-                            <div class="checkmark">
-                            </div>
-                          </label>
-                        </div>
+    
+                    <li class="py-2">
+                      <div class="flex justify-between items-center">
+                        <p>Baby Beaux Arts</p>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input checked="checked" type="checkbox" class="sr-only peer">
+                          <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                        </label>
                       </div>
                     </li>
-
-
-
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-lg-10 mt-1">
-                          <p class="card-text">Pâtisserie</p>
-                        </div>
-                        <div class="col-lg-2 mt-1">
-                          <label class="container">
-                            <input checked="checked" type="checkbox">
-                            <div class="checkmark">
-                            </div>
-                          </label>
-                        </div>
+    
+                    <li class="py-2">
+                      <div class="flex justify-between items-center">
+                        <p>Pâtisserie</p>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input checked="checked" type="checkbox" class="sr-only peer">
+                          <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                        </label>
                       </div>
                     </li>
-
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-lg-10 mt-1">
-                          <p class="card-text">Eveil par le conte</p>
-                        </div>
-                        <div class="col-lg-2 mt-1">
-                          <label class="container">
-                            <input checked="checked" type="checkbox">
-                            <div class="checkmark">
-                            </div>
-                          </label>
-                        </div>
+    
+                    <li class="py-2">
+                      <div class="flex justify-between items-center">
+                        <p>Eveil par le conte</p>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input checked="checked" type="checkbox" class="sr-only peer">
+                          <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                        </label>
                       </div>
                     </li>
-
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-lg-10 mt-1">
-                          <p class="card-text">Eveil sonore</p>
-                        </div>
-                        <div class="col-lg-2 mt-1">
-                          <label class="container">
-                            <input checked="checked" type="checkbox">
-                            <div class="checkmark">
-                            </div>
-                          </label>
-                        </div>
+    
+                    <li class="py-2">
+                      <div class="flex justify-between items-center">
+                        <p>Eveil sonore</p>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input checked="checked" type="checkbox" class="sr-only peer">
+                          <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                        </label>
                       </div>
                     </li>
-
-
-                    <li class="list-group-item">
-                      <div class="row">
-                        <div class="col-lg-10 mt-1">
-                          <p class="card-text">Jardinage</p>
-                        </div>
-                        <div class="col-lg-2 mt-1">
-                          <label class="container">
-                            <input checked="checked" type="checkbox">
-                            <div class="checkmark">
-                            </div>
-                          </label>
-                        </div>
+    
+                    <li class="py-2">
+                      <div class="flex justify-between items-center">
+                        <p>Jardinage</p>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                          <input checked="checked" type="checkbox" class="sr-only peer">
+                          <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                        </label>
                       </div>
                     </li>
                   </ul>
-
-
-
                 </div>
               </div>
-  
-  
-  
+            </div>
+    
+            <div class="bg-blue-50 border border-gray-800 rounded-lg shadow-md p-6 mt-3">
+              <h2 class="text-2xl font-bold">Sortie</h2>
+              <h6 class="text-gray-600 mb-4">Cocher les fichiers dont vous avez besoin</h6>
+              
+              <div class="bg-white p-4 rounded-lg border border-gray-300">
+                <ul class="divide-y divide-gray-200">
+                  <li class="py-2">
+                    <div class="flex justify-between items-center">
+                      <p>Planning Hedbomadaire à afficher</p>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input id="sortiePlanningHebdo" checked="checked" type="checkbox" class="sr-only peer">
+                        <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                      </label>
+                    </div>
+                  </li>
+    
+                  <li class="py-2">
+                    <div class="flex justify-between items-center">
+                      <p>Planning Hedbomadaire pour l'équipe</p>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input id="sortiePlanningHebdoEquipe" checked="checked" type="checkbox" class="sr-only peer">
+                        <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                      </label>
+                    </div>
+                  </li>
+    
+                  <li class="py-2">
+                    <div class="flex justify-between items-center">
+                      <p>Tutoriel des activités pour l'équipe</p>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input id="sortieTutoEquipe" checked="checked" type="checkbox" class="sr-only peer">
+                        <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                      </label>
+                    </div>
+                  </li>
+    
+                  <p id="testaffich"></p>
+                  
+                  <li class="py-2">
+                    <div class="flex justify-between items-center">
+                      <p>Résumé hedbomadaire pour les parents</p>
+                      <label class="relative inline-flex items-center cursor-pointer">
+                        <input id="sortieResumeHedboParents" checked="checked" type="checkbox" class="sr-only peer">
+                        <div class="w-5 h-5 bg-gray-200 peer-checked:bg-blue-600 border border-gray-300 rounded peer-checked:after:block peer-checked:after:content-['✓'] peer-checked:after:text-white peer-checked:after:text-center peer-checked:after:text-xs"></div>
+                      </label>
+                    </div>
+                  </li>
+                </ul>
+                
+                <button id="generer" type="button" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-3">
+                  Générer
+                </button>       
+                <p id="affichagePlanning"></p>
+              </div>
             </div>
           </div>
-              </div>
-
-
-
-              <div class="card mt-3 border-dark bg-custom-1">
-                <div class="card-body">
-                  <h2 class="card-title d-inline-flex gap-1">
-                    Sortie
-                  </h2>
-                  <h6 class="card-subtitle mb-2 text-body-secondary">Cocher les fichiers dont vous avez besoin</h6>
-                  
-                  <div class="card card-body">
-                    
-                    <ul class="list-group">
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Planning Hedbomadaire à afficher</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="sortiePlanningHebdo" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Planning Hedbomadaire pour l'équipe</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="sortiePlanningHebdoEquipe" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Tutoriel des activités pour l'équipe</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="sortieTutoEquipe" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-
-                      <p id="testaffich"> </p>
-                      <li class="list-group-item">
-                        <div class="row">
-                          <div class="col-lg-10 mt-1">
-                            <p class="card-text">Résumé hedbomadaire pour les parents</p>
-                          </div>
-                          <div class="col-lg-2 mt-1">
-                            <label class="container">
-                              <input id="sortieResumeHedboParents" checked="checked" type="checkbox">
-                              <div class="checkmark">
-                              </div>
-                            </label>
-                          </div>
-                        </div>
-                      </li>
-
-                    </ul>
-                    <button id="generer" type="button" class="btn btn-success mt-3">Générer</button>       
-                    <p id="affichagePlanning"></p>     
-                    
-                  </div>
-                </div>
-              </div>
-
-      </div>            
-                          
-    </div>
-</div>
+        </div>
+      </div>
 
 
 
@@ -659,15 +499,10 @@
   </footer>
   
 
-  <input type="text" id="user-prompt" placeholder="Enter your prompt" />
-  <button id="send-prompt">Send Prompt</button>
-
-  <p id="affichage"></p>
 
 
   <script type="module" src="backend.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
   
 
 </body>
